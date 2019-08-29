@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-im = Image.open('imagem2.png')
+im = Image.open('mapa1.png')
 # R, G, B, A
 im2arr = np.array(im)
 
@@ -12,8 +12,22 @@ colors = {
     'none': [[0, 0, 0, 0], 0]
 }
 
+listOfColors = list()
+
 for r in range(0, im2arr.shape[0]):
     for c in range(0, im2arr.shape[1]):
+
+        bu = True
+        for cor in listOfColors:
+            if im2arr[r][c][0] == cor[0] and im2arr[r][c][1] == cor[1] and im2arr[r][c][2] == cor[2]:
+                bu = False
+            else:
+                pass
+
+        if bu:
+            listOfColors.append(im2arr[r][c])
+
+        '''
         diff = {}
         print("======================================")
         for color in colors.keys():
@@ -32,7 +46,8 @@ for r in range(0, im2arr.shape[0]):
                 a = diff[dif]
 
         print(f"{r} - {c} = {object}")
+        '''
 
-
+print(listOfColors)
 arr2im = Image.fromarray(im2arr)
 #https://www.pixilart.com
