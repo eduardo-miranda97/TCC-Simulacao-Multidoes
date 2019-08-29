@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-im = Image.open('mapa1.png')
+im = Image.open('mapa4.png')
 # R, G, B, A
 im2arr = np.array(im)
 
@@ -11,9 +11,8 @@ colors = {
     'none': [[255, 255, 255, 255], 0],
     'none': [[0, 0, 0, 0], 0]
 }
-
+#funcao para reconhecer a quantidade de cores
 listOfColors = list()
-
 for r in range(0, im2arr.shape[0]):
     for c in range(0, im2arr.shape[1]):
 
@@ -47,6 +46,52 @@ for r in range(0, im2arr.shape[0]):
 
         print(f"{r} - {c} = {object}")
         '''
+
+#funcao para traduzir o primeiro mapa estatico de distancias
+with open("mapaTeste.map", "w") as arq_out:
+
+    for r in range(0, im2arr.shape[0]):
+        for c in range(0, im2arr.shape[1]):
+            
+            if im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
+                arq_out.write('1')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
+                arq_out.write('2')
+            else:
+                arq_out.write('0')
+        arq_out.write('\n')
+
+#funcao para traduzir o segundo mapa de fogo fixo
+with open("mapaTesteFogo.map", "w") as arq_out:
+
+    for r in range(0, im2arr.shape[0]):
+        for c in range(0, im2arr.shape[1]):
+            
+            if im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
+                arq_out.write('0')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
+                arq_out.write('0')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 255:
+                arq_out.write('1')
+            else:
+                arq_out.write('8')
+        arq_out.write('\n')
+
+#funcao para traduzir o segundo mapa de vento fixo
+with open("mapaTesteVento.map", "w") as arq_out:
+
+    for r in range(0, im2arr.shape[0]):
+        for c in range(0, im2arr.shape[1]):
+            
+            if im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
+                arq_out.write('0')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
+                arq_out.write('1')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 255:
+                arq_out.write('1')
+            else:
+                arq_out.write('1')
+        arq_out.write('\n')
 
 print(listOfColors)
 arr2im = Image.fromarray(im2arr)
