@@ -1,7 +1,8 @@
 from PIL import Image
 import numpy as np
+import sys
 
-im = Image.open('mapa4.png')
+im = Image.open('mapa-doido.png')
 # R, G, B, A
 im2arr = np.array(im)
 
@@ -48,7 +49,7 @@ for r in range(0, im2arr.shape[0]):
         '''
 
 #funcao para traduzir o primeiro mapa estatico de distancias
-with open("mapaTeste.map", "w") as arq_out:
+with open("mapaTeste2.map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
@@ -57,12 +58,14 @@ with open("mapaTeste.map", "w") as arq_out:
                 arq_out.write('1')
             elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
                 arq_out.write('2')
-            else:
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 255:
                 arq_out.write('0')
+            else:
+                arq_out.write('8')
         arq_out.write('\n')
 
 #funcao para traduzir o segundo mapa de fogo fixo
-with open("mapaTesteFogo.map", "w") as arq_out:
+with open("mapaTesteFogo2.map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
@@ -78,7 +81,7 @@ with open("mapaTesteFogo.map", "w") as arq_out:
         arq_out.write('\n')
 
 #funcao para traduzir o segundo mapa de vento fixo
-with open("mapaTesteVento.map", "w") as arq_out:
+with open("mapaTesteVento2.map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
