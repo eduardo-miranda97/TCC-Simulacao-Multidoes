@@ -2,9 +2,24 @@ from PIL import Image
 import numpy as np
 import sys
 
-im = Image.open('mapa-doido.png')
+if len(sys.argv) == 2:
+    if sys.argv[1] =='-h' or sys.argv[1] =='-H':
+        exit()
+
+if len(sys.argv) != 3:
+    print("\nERRO Sintaxe: python3 conversorMapa.py <arq-entrada> <arq-saida> \n")
+    exit()
+
+arquivo_entrada = sys.argv[1]
+arquivo_saida = sys.argv[2]	
+
+print(arquivo_entrada + ' ' + arquivo_saida)
+
+im = Image.open(arquivo_entrada)
 # R, G, B, A
 im2arr = np.array(im)
+
+print()
 
 colors = {
     'wall': [[0, 0, 0, 255], 1],
@@ -13,6 +28,7 @@ colors = {
     'none': [[0, 0, 0, 0], 0]
 }
 #funcao para reconhecer a quantidade de cores
+
 listOfColors = list()
 for r in range(0, im2arr.shape[0]):
     for c in range(0, im2arr.shape[1]):
@@ -23,6 +39,12 @@ for r in range(0, im2arr.shape[0]):
                 bu = False
             else:
                 pass
+
+        print('r - '+str(r)+' c - '+str(c) + ' cor= '+str(im2arr[r][c]))
+        print('r - '+str(r)+' c - '+str(c) + ' cor0= '+str(im2arr[r][c][0]))
+        print('r - '+str(r)+' c - '+str(c) + ' cor1= '+str(im2arr[r][c][1]))
+        print('r - '+str(r)+' c - '+str(c) + ' cor2= '+str(im2arr[r][c][2]))
+
 
         if bu:
             listOfColors.append(im2arr[r][c])
@@ -49,7 +71,7 @@ for r in range(0, im2arr.shape[0]):
         '''
 
 #funcao para traduzir o primeiro mapa estatico de distancias
-with open("mapaTeste2.map", "w") as arq_out:
+with open(arquivo_saida+".map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
@@ -65,7 +87,7 @@ with open("mapaTeste2.map", "w") as arq_out:
         arq_out.write('\n')
 
 #funcao para traduzir o segundo mapa de fogo fixo
-with open("mapaTesteFogo2.map", "w") as arq_out:
+with open(arquivo_saida+"_fogo.map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
@@ -81,7 +103,7 @@ with open("mapaTesteFogo2.map", "w") as arq_out:
         arq_out.write('\n')
 
 #funcao para traduzir o segundo mapa de vento fixo
-with open("mapaTesteVento2.map", "w") as arq_out:
+with open(arquivo_saida+"_vento.map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
