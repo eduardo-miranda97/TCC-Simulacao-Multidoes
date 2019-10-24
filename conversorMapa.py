@@ -2,9 +2,25 @@ from PIL import Image
 import numpy as np
 import sys
 
+def retornaPrctCombust(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
 if len(sys.argv) == 2:
-    if sys.argv[1] =='-h' or sys.argv[1] =='-H':
-        exit()
+    if sys.argv[1] =='-h' or sys.argv[1] =='-H' or len(sys.argv) == 1:
+        string = "Tabela de cores para representação do mapa:\n"
+        string += "Portas - Vermelho : RGB = (255,0,0)\n"
+        string += "Espaço vazio - Branco : RGB = (255,255,255)\n"
+        string += "Espaço inatingível - Prata : RGB = (192,192,192)\n"
+        string += "Janelas - Lima : RGB = (0,255,0)\n"
+        string += "Paredes - Preto : RGB = (0,0,0)\n"
+        string += "Desenho - Laranja : RGB = (255,165,0)\n"
+
+        string +=  """As porcentagem de combustão dos objetos serão definidas em uma escala de azul onde o R = G = 0 enquanto o
+B varia de 1-255 definindo então a combustão do objeto em questão sendo 1 menos inflamável e 255 mais inflamável\n."""
+
+        print(string)
+
+    exit()
 
 if len(sys.argv) != 3:
     print("\nERRO Sintaxe: python3 conversorMapa.py <arq-entrada> <arq-saida> \n")
@@ -40,12 +56,6 @@ for r in range(0, im2arr.shape[0]):
             else:
                 pass
 
-        print('r - '+str(r)+' c - '+str(c) + ' cor= '+str(im2arr[r][c]))
-        print('r - '+str(r)+' c - '+str(c) + ' cor0= '+str(im2arr[r][c][0]))
-        print('r - '+str(r)+' c - '+str(c) + ' cor1= '+str(im2arr[r][c][1]))
-        print('r - '+str(r)+' c - '+str(c) + ' cor2= '+str(im2arr[r][c][2]))
-
-
         if bu:
             listOfColors.append(im2arr[r][c])
 
@@ -75,12 +85,18 @@ with open(arquivo_saida+".map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
-            
+
             if im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
                 arq_out.write('1')
             elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
                 arq_out.write('2')
             elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 255:
+                arq_out.write('0')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 165 and im2arr[r][c][2] == 0:
+                arq_out.write('9')
+            elif im2arr[r][c][0] == 0 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 0:
+                arq_out.write('7')
+            elif im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0:
                 arq_out.write('0')
             else:
                 arq_out.write('8')
@@ -91,15 +107,19 @@ with open(arquivo_saida+"_fogo.map", "w") as arq_out:
 
     for r in range(0, im2arr.shape[0]):
         for c in range(0, im2arr.shape[1]):
-            
+
             if im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
                 arq_out.write('0')
             elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 0 and im2arr[r][c][2] == 0:
                 arq_out.write('0')
             elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 255:
                 arq_out.write('1')
+            elif im2arr[r][c][0] == 0 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 0:
+                arq_out.write('1')
+            elif im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0:
+                arq_out.write(retornaPrctCombust(im2arr[r][c][2], 1, 255, 0, 8))
             else:
-                arq_out.write('8')
+                arq_out.write('1')
         arq_out.write('\n')
 
 #funcao para traduzir o segundo mapa de vento fixo
