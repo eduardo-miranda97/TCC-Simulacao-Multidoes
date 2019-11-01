@@ -94,6 +94,8 @@ with open(arquivo_saida+".map", "w") as arq_out:
                 arq_out.write('0')
             elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 165 and im2arr[r][c][2] == 0:
                 arq_out.write('9')
+            elif im2arr[r][c][0] == 255 and im2arr[r][c][1] == 166 and im2arr[r][c][2] == 0:
+                arq_out.write('9')
             elif im2arr[r][c][0] == 0 and im2arr[r][c][1] == 255 and im2arr[r][c][2] == 0:
                 arq_out.write('7')
             elif im2arr[r][c][0] == 0 and im2arr[r][c][1] == 0:
