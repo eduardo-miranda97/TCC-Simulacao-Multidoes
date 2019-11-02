@@ -24,6 +24,7 @@ import matplotlib.patches as mpatches
 
 import os
 import datetime
+import time
 
 class Simulacao(Frame):
 
@@ -227,6 +228,8 @@ class Simulacao(Frame):
     
     def iniciaSimulacao(self):
         
+        tempo1 = time.time()
+
         self.geraIndividuosAleatoriamente()
         #self.geraFogoInicial()
         for ind in range(self.dados.QTD_REPLICACACOES):
@@ -246,7 +249,7 @@ class Simulacao(Frame):
             #self.geraIndividuosAleatoriamente()
 
             logs.abreMovsPerIter()
-            self.simulacao(logs)
+            iters = self.simulacao(logs)
             logs.fechaMovsPerIter()
 
             KPIs = logs.printaKPIs(self.listaIndividuos, self.dados.FLAG_ATIVACAO_FOGO)
@@ -257,6 +260,18 @@ class Simulacao(Frame):
             logs.geraResultado(ind, self.tempo)
 
             self.exportaGraficos(self.diretorio, ind)
+
+        tempo2 = time.time()
+        dife = tempo2 - tempo1
+
+                # Se arquivo não existe, cria-o com o cabeçalho
+        if os.path.exists('resultados.txt'):
+            file = open('resultados.txt', "a")
+        else:
+            file = open('resultados.txt', "w+")
+            file.write("RUNTIME\tIteracoes\tMedia movimentos\tMedia espera\n")
+        file.write(f"{str(dife)}\t{str(iters)}\t{KPIs[0]}\t{KPIs[1]}\n")
+        file.close()
         #imprime resultado do mapa dinamico 1 
         #for i in range(self.listaMapas.__len__()):
             #print('Mapa Parede: ' + str(i))
@@ -350,6 +365,8 @@ class Simulacao(Frame):
             #print(self.listaMapas[i].mapa_calor)
             if self.dados.FLAG_ATIVACAO_FOGO:
                 self.atualizaVitalidade()
+
+        return self.tempo
 
 
     def geraFogoInicial(self):
