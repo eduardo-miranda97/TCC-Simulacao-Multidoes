@@ -73,7 +73,7 @@ class Util(object):
     KS = 2
     KW = 0.5
     KI = 1
-    DMax = 3
+    DMax = 10
 
     #Sexo
     S_FEMININO  = 0
