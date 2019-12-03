@@ -1,0 +1,7 @@
+Min	1.0
+Max	1.0
+Mean	1.0
+Median	1.0
+Variance	0.0
+Desvio Padrão	0.0
+Coeficiente de Variação	0.0

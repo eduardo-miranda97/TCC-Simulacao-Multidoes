@@ -1,0 +1,7 @@
+Min	8.0
+Max	12.0
+Mean	9.485
+Median	10.0
+Variance	0.5578535353535353
+Desvio Padrão	0.7468959334161188
+Coeficiente de Variação	7.87

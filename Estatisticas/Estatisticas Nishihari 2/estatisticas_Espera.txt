@@ -1,0 +1,5 @@
+Min	5.0
+Max	7.5
+Mean	6.15
+Median	6.0
+Variance	0.4217171717171717

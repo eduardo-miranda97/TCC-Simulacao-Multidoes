@@ -1,0 +1,5 @@
+Min	58.0
+Max	81.5
+Mean	73.26
+Median	74.0
+Variance	16.669090909090908

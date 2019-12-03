@@ -1,0 +1,5 @@
+-	Min	Max	Media	Mediana	Variancia
+Runtime	47.28	80.48	61.64	61.57	45.15
+Iteracoes	150.0	252.0	197.55	198.0	451.5
+Movimentos	21.0	25.0	23.26	23.0	0.71
+Espera	2.0	3.0	2.52	3.0	0.25

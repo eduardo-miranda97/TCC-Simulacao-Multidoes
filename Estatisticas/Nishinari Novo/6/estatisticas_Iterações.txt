@@ -1,0 +1,7 @@
+Min	323.0
+Max	1199.0
+Mean	724.3698630136986
+Median	720.0
+Variance	60189.125190258754
+Desvio Padrão	245.33472071897762
+Coeficiente de Variação	33.87
