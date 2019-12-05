@@ -10,10 +10,6 @@ def cv(lista):
 	return round(float(100*float(statistics.stdev(lista))/float(statistics.mean(lista))),2)
 
 nome_arquivo = sys.argv[1]
-qtd_colunas = int(sys.argv[2])
-listas = [] 
-for i in range(qtd_colunas):
-	listas.append([])
 
 colunas = []
 
@@ -24,7 +20,12 @@ for linha in Arq:
 	#ignora linha inicial
 	if(("RUNTIME" in linha)):
 		for it in linha.split("\t"):
-			colunas.append(it)
+			colunas.append(it.strip())
+		qtd_colunas = len(colunas)
+		listas = [] 
+		for i in range(qtd_colunas):
+			listas.append([])
+		continue
 
 	conteudo = linha.split("\t")
 	for i in range(qtd_colunas):
