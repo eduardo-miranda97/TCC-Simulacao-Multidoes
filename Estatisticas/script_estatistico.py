@@ -15,13 +15,16 @@ listas = []
 for i in range(qtd_colunas):
 	listas.append([])
 
+colunas = []
+
 Arq = open(nome_arquivo, "r")
 
 for linha in Arq:
 
 	#ignora linha inicial
 	if(("RUNTIME" in linha)):
-		continue
+		for it in linha.split("\t"):
+			colunas.append(it)
 
 	conteudo = linha.split("\t")
 	for i in range(qtd_colunas):
@@ -29,7 +32,7 @@ for linha in Arq:
 
 Arq.close()
 
-colunas = ['Runtime','Iterações','Movimentos','Espera']
+
 for i in range(qtd_colunas):
 	plt.figure()
 	plt.title("Boxplot: "+colunas[i])
