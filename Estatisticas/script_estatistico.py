@@ -28,8 +28,9 @@ for linha in Arq:
 		continue
 
 	conteudo = linha.split("\t")
-	for i in range(qtd_colunas):
-		listas[i].append(float(conteudo[i]))
+	if conteudo[0][0] != '#':
+		for i in range(qtd_colunas):
+			listas[i].append(float(conteudo[i]))
 
 Arq.close()
 
