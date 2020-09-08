@@ -1,4 +1,4 @@
-<h1 align="left"> Simlação de Multidões </h1>
+<h1 align="left"> Simulação de Multidões </h1>
 
 Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais, IFMG - Campus Formiga
 
